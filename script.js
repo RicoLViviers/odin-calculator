@@ -73,10 +73,18 @@ document.addEventListener("mouseup", () => {
     isMouseDown = false;
 });
 
+let shouldClear = false;
+
 buttonContainer.addEventListener("mousedown", (event) => {
     if (event.target.classList.contains("calc-button")) {
         const text = event.target.innerText;
         const number = Number(text);
+
+        if (shouldClear)
+        {
+            answerP.innerText = "";
+            shouldClear = false;
+        }
 
         if (Number.isInteger(number) && text.trim() !== "") {
             answerP.innerText += text;
@@ -88,6 +96,7 @@ buttonContainer.addEventListener("mousedown", (event) => {
                     num2 = Number(answerP.innerText);
 
                     answerP.innerText = operate(num1, num2, operation);
+                    shouldClear = true;
                     break;
 
 
